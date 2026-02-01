@@ -2,23 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PhotoGridItem = ({ id, src, alt, tags }) => {
-  const avifSet = `
-    ${src.replace('.jpg', '.avif')} 1x,
-    ${src.replace('.jpg', '@2x.avif')} 2x,
-    ${src.replace('.jpg', '@3x.avif')} 3x
-  `;
-  const jpgSet = `
-    ${src} 1x,
-    ${src.replace('.jpg', '@2x.jpg')} 2x,
-    ${src.replace('.jpg', '@3x.jpg')} 3x
-  `;
-
   return (
     <article>
       <Anchor href={`/photos/${id}`}>
         <picture>
-          <source srcSet={avifSet} />
-          <source srcSet={jpgSet} />
+          <source
+            type="image/avif"
+            srcSet={`
+              ${src.replace('.jpg', '.avif')} 1x,
+              ${src.replace('.jpg', '@2x.avif')} 2x,
+              ${src.replace('.jpg', '@3x.avif')} 3x
+            `}
+          />
+          <source
+            type="image/jpeg"
+            srcSet={`
+              ${src} 1x,
+              ${src.replace('.jpg', '@2x.jpg')} 2x,
+              ${src.replace('.jpg', '@3x.jpg')} 3x
+            `}
+          />
           <Image src={src} />
         </picture>
       </Anchor>
